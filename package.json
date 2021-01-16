@@ -1,0 +1,14 @@
+{
+    "name": "about-cameron",
+    "version": "1.0.0",
+    "description": "a chatbot about myself",
+    "main": "index.js",
+    "scripts": {
+        "start": "node ."
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "linebot": "^1.6.1"
+    }
+}
