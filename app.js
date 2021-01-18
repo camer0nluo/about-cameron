@@ -23,7 +23,7 @@ const app = express();
 // register a webhook handler with middleware
 // about the middleware, please refer to doc
 app.post("/callback", line.middleware(config), (req, res) => {
-  // req.body.events should be an array of events
+  // req.body.events should be a=n array of events
   if (!Array.isArray(req.body.events)) {
     return res.status(500).end();
   }
@@ -36,9 +36,28 @@ app.post("/callback", line.middleware(config), (req, res) => {
         event.replyToken === "00000000000000000000000000000000" ||
         event.replyToken === "ffffffffffffffffffffffffffffffff"
       ) {
-        return;
+        return Promise.resolve(null);
       }
-      return handleEvent(event);
+      if (event.type !== "message" || event.message.type !== "text") {
+        // ignore non-text-message event
+        return Promise.resolve(null);
+      }
+      /*
+      if (event.message.text === "age" || "Age" || "幾歲") {
+        return client.replyMessage(event.replyToken, [
+          {
+            type: "sticker",
+            packageId: "11537",
+            stickerId: "52002745",
+          },
+        ]);
+      }*/
+
+      const echo = { type: "text", text: event.message.text };
+
+      if (event.message.text === "name" || "名字") {
+        return client.replyMessage(event.replyToken, echo);
+      } //else return handleEvent(event);
     })
   )
     .then(() => res.end())
