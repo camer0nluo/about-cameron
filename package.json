@@ -2,15 +2,14 @@
   "name": "about-cameron",
   "version": "1.0.0",
   "description": "a chatbot about myself",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "dev": "nodemon app",
-    "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ."
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@line/bot-sdk": "^7.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "linebot": "^1.6.1",

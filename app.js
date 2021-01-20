@@ -6,7 +6,6 @@ const express = require("express");
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
-
 // create LINE SDK config from env variables
 const config = {
   channelId: process.env.LINE_CHANNEL_ID,
@@ -48,7 +47,6 @@ function handleEvent(event) {
 
 // listen on port
 const port = process.env.PORT || 3000;
-
 app.listen(port, () => {
   console.log(`listening on ${port}`);
 });
