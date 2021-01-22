@@ -49,12 +49,63 @@ app.post("/callback", line.middleware(config), (req, res) => {
 });
 
 // simple reply function
+/*
 const replyText = (token, texts) => {
   texts = Array.isArray(texts) ? texts : [texts];
   return client.replyMessage(
     token,
     texts.map((text) => ({ type: "text", text }))
   );
+};*/
+
+const replyText = (token, texts) => {
+  texts = Array.isArray(texts) ? texts : [texts];
+  return client.replyMessage(token, {
+    type: "text",
+    text: "What do you want to know about me?",
+    quickReply: {
+      items: [
+        {
+          type: "action",
+          action: {
+            type: "message",
+            label: "Major",
+            text: "Computer Science",
+          },
+        },
+        {
+          type: "action",
+          action: {
+            type: "message",
+            label: "Languages and Skillset",
+            text:
+              "JavaScript, HTML, CSS, Java, C++, .NET, Spring Boot, Docker, Jenkins ",
+          },
+        },
+        {
+          type: "action",
+          action: {
+            type: "camera",
+            label: "Send camera",
+          },
+        },
+        {
+          type: "action",
+          action: {
+            type: "cameraRoll",
+            label: "Send image",
+          },
+        },
+        {
+          type: "action",
+          action: {
+            type: "location",
+            label: "Send location",
+          },
+        },
+      ],
+    },
+  });
 };
 
 function handleEvent(event) {
@@ -62,8 +113,8 @@ function handleEvent(event) {
     case "message":
       const message = event.message;
       switch (message.type) {
-        case "text":
-          return handleText(message, event.replyToken);
+        //case "text":
+        //return handleText(message, event.replyToken);
         case "image":
           return handleImage(message, event.replyToken);
         case "video":
@@ -132,6 +183,10 @@ function handleSticker(message, replyToken) {
   return replyText(replyToken, "Got Sticker");
 }
 // listen on port
-app.listen(process.env.PORT || 3000, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+app.listen(process.env.PORT || 3000, function () {
+  console.log(
+    "Express server listening on port %d in %s mode",
+    this.address().port,
+    app.settings.env
+  );
 });
